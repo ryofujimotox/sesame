@@ -2,12 +2,6 @@
   "name": "ryofujimotox/sesame",
   "description": "SESAMIMIMIMI",
   "license": "MIT",
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/ryofujimotox/php_library"
-    }
-  ],
   "require": {
     "ryofujimotox/php_library": "^1"
   },
