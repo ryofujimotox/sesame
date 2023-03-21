@@ -9,7 +9,7 @@ class Utility {
      * @return \DateTime
      */
     public static function datetimeByTimestamp(float $timeStamp): \DateTime {
-        $timestamp = (float) $timeStamp / 1000;
+        $timestamp = round($timeStamp / 1000);
         $datetime = new \DateTime();
         $datetime->setTimeZone(new \DateTimeZone('Asia/Tokyo'));
         $datetime->setTimestamp($timestamp);
