@@ -18,18 +18,29 @@ class Sesame {
 
     /**
      *
+     * 施錠する
+     * @return void
+     */
+    public function lock(): void {
+        $this->control(82);
+    }
+
+    /**
+     *
+     * 解錠する
+     * @return void
+     */
+    public function open(): void {
+        $this->control(83);
+    }
+
+    /**
+     *
      * 施錠と解錠をトグルする
      * @return void
      */
     public function toggle(): void {
-        //
-        $history = base64_encode('WEB API');// 履歴に残る名前。半角しか使えないらしい
-        $cmd = 88; // toggle:88/lock:82/unlock:83
-        $sign = $this->getTimestampSign();
-        $content = json_encode(compact('cmd', 'history', 'sign'));
-
-        //
-        $this->relay('cmd', 'POST', $content);
+        $this->control(88);
     }
 
     /**
@@ -58,6 +69,23 @@ class Sesame {
         $history = $this->relay("history?page={$page}&lg={$limit}", 'GET');
         $history = new History($history);
         return $history;
+    }
+
+    /**
+     *
+     * 施解錠のコントロール
+     *
+     * @param int $cmd 88:toggle / 82:lock / 83:unlock
+     * @return void
+     */
+    public function control(int $cmd): void {
+        //
+        $history = base64_encode('sesameAPI');// 履歴に残る名前。半角しか使えないらしい
+        $sign = $this->getTimestampSign();
+        $content = json_encode(compact('cmd', 'history', 'sign'));
+
+        //
+        $this->relay('cmd', 'POST', $content);
     }
 
     /**
